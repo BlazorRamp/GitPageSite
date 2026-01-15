@@ -27,6 +27,10 @@
   --br-unit-space-3: 0.5rem;
   --br-unit-space-4: 0.75rem;
   --br-unit-space-5: 1rem;
+  --br-unit-space-6: 1.25rem;
+  --br-unit-space-7: 1.5rem;
+  --br-unit-space-8: 1.75rem;
+  --br-unit-space-9: 2rem;
   /*
       * Border radidius
   */
@@ -349,15 +353,12 @@
   --br-comp-all-button-font-weight: var(--br-unit-font-weight-400,inherit);
   --br-comp-all-button-line-height: inherit;
   --br-comp-all-button-border-style: solid;
-  --br-comp-all-button-border-colour: var(--br-unit-colour-primary-30);
+  --br-comp-all-button-border-colour: var(--br-unit-colour-primary-40);
   --br-comp-all-button-border-width: var(--br-unit-border-1);
   --br-comp-all-button-border-radius: var(--br-unit-radius-full);
   --br-comp-all-button-state-hover: hsl(from var(--br-unit-colour-primary) h s l / var(--br-unit-opacity-val-10));
   --br-comp-all-button-state-active-brigthness: var(--br-unit-state-active-brigthness);
   --br-comp-all-button-state-active-scale: var(--br-unit-state-active-scale);
-  /*
-      *
-  */
   /*
       * SVG icons
   */
@@ -467,7 +468,6 @@ body {
   --br-comp-history-button-font-size: var(--br-comp-all-button-font-size);
   --br-comp-history-button-font-weight: var(--br-comp-all-button-font-weight);
   --br-comp-history-button-line-height: var(--br-comp-all-button-line-heigh);
-  --br-comp-history-button-border: var(--br-comp-all-button-borde);
   --br-comp-history-button-border-style: var(--br-comp-all-button-border-style);
   --br-comp-history-button-border-colour: var(--br-comp-all-button-border-colour);
   --br-comp-history-button-border-width: var(--br-comp-all-button-border-width);
@@ -629,6 +629,9 @@ dialog.br-announcement-history__popover:focus-visible {
   align-items: center;
   padding-top: var(--br-unit-space-4);
 }
+.br-announcement-history__footer--reverse {
+  flex-direction: row-reverse;
+}
 .br-announcement-history__button {
   appearance: none;
   background-color: var(--br-comp-history-button-background);
@@ -676,7 +679,7 @@ dialog.br-announcement-history__popover:focus-visible {
   border-color: var(--br-comp-history-trigger-pane-surface-border-colour);
   box-shadow: var(--br-unit-box-shadow-1);
   min-height: var(--br-unit-wcag-target-3a);
-  min-width: var(--br-unit-wcag-target-3a);
+  min-width: 100px;
   font-size: var(--br-comp-history-trigger-pane-surface-font-size);
   cursor: pointer;
   display: flex;
@@ -685,8 +688,7 @@ dialog.br-announcement-history__popover:focus-visible {
   align-items: center;
   gap: var(--br-unit-space-3);
   overflow: hidden;
-  aspect-ratio: 1/1;
-  padding: calc(var(--br-unit-space-2) * 5);
+  padding: var(--br-unit-space-3);
   background-color: var(--br-comp-history-trigger-pane-surface-background);
   color: var(--br-comp-history-trigger-pane-surface-text);
 }
