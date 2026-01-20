@@ -370,6 +370,7 @@
   --br-unit-colour-canvas-text-inverted: var(--br-unit-colour-neutral-90);
   --br-comp-all-button-background: var(--br-unit-colour-primary-70);
   --br-comp-all-button-border-colour: var(--br-unit-colour-primary-30);
+  --br-comp-all-area-header-background: var(--br-unit-colour-neutral-70);
 }
 
 *,
@@ -510,7 +511,7 @@ body #app__main {
   margin-bottom: var(--br-unit-space-5);
 }
 .info-box ol {
-  margin-left: calc(var(--br-unit-space-2) * 5);
+  margin-left: var(--br-unit-space-6);
 }
 .info-box__heading {
   color: var(--br-info-box-alternate-heading-text);
@@ -533,7 +534,7 @@ body #app__main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: calc(var(--br-unit-space-5) * 2);
+  gap: var(--br-unit-space-9);
   cursor: pointer;
 }
 .info-box--container-test > span.checkboxtest {
@@ -570,7 +571,7 @@ body #app__main {
 }
 .test-button:active {
   transform: scale(var(--br-comp-all-button-state-active-scale));
-  filter: brightness(var(--br-comp-all-button-state-active-brigthness));
+  filter: brightness(var(--br-comp-all-button-state-active-brightness));
   outline: none;
 }
 .test-button:focus-visible {
@@ -609,7 +610,7 @@ body #app__main {
 }
 .link-button:active {
   transform: scale(var(--br-comp-all-button-state-active-scale));
-  filter: brightness(var(--br-comp-all-button-state-active-brigthness));
+  filter: brightness(var(--br-comp-all-button-state-active-brightness));
   outline: none;
 }
 .link-button:focus-visible {
