@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BlazorRamp.WebSite",
   "resources": {
-    "hash": "sha256-6e5hKBgyYrUj4KJCvH2o7jSHcxQX0gl3xCP2xUiLFbA=",
+    "hash": "sha256-SpDSp9Togy5CoJzBHJYuAt2ib8Qh6MigN/SBagWEs8g=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-AlwvznbYtTfPMFBjZqh7Wj4D/MDuNAMT79h4fd0B7s0="
     },
@@ -9,7 +9,7 @@
       "dotnet.runtime.js": "sha256-TGUqQm2/C+r+yZ5BCjd72qyLw9wv0KPFKzKXk/giiyY="
     },
     "wasmNative": {
-      "dotnet.native.wasm": "sha256-Z1nXVQ2DJlrNEV0iC9xbI0SaStavaHCnte0ngC05KiI="
+      "dotnet.native.wasm": "sha256-wPLaARPu6reITlD1NVJm5X7iwpDi6A7uAf9qCyVCJBM="
     },
     "icu": {
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -42,14 +42,14 @@
       "System.Net.Primitives.wasm": "sha256-h7OMygXcLfv3yS7oYcfmRdLJJUVN7MbIBGVZOuOvonM=",
       "System.Private.Uri.wasm": "sha256-yrg7SmeyYnV5yopgdv8At+v8IJXgcZqtdQ8XGfqpby0=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-6hdGkh80Le78a9cg0/X1jE6bN7MJcXfdZhyjTFvqx4M=",
-      "System.Runtime.wasm": "sha256-h6wtaufCYU+REHRzmjbE6B/mjTJfpVLDtD6mcadch8E=",
+      "System.Runtime.wasm": "sha256-EV0tY+dwo7zLOcYoVtgw0rq1NsmBZOEVXNwDMZ0pTaE=",
       "System.Text.Encodings.Web.wasm": "sha256-QlEAY71V5tn3FS4QI+N/MDAf43l3aWX0SFMMJbfw3C8=",
       "System.Text.Json.wasm": "sha256-fWPU70PwcfQcIUd8OtvLIFSBBfHRS9U5cl+f0qELQBA=",
       "System.Text.RegularExpressions.wasm": "sha256-nE7XCiyeCswUnRGdXOQvcHP+XMWXcToACrazpZlocBI=",
-      "System.Private.CoreLib.wasm": "sha256-W6ihJ3n8SFnAyLL89xCnDESbbkjrZIwoOK+U+f75Cys=",
-      "BlazorRamp.BusyIndicator.wasm": "sha256-IE3jTMMMQwXJezJZ5jKwzfrPHZU/NhK6rd32IR1KPb0=",
-      "BlazorRamp.Core.wasm": "sha256-tXTuGBoBOrVhrpcTA0Y6iXtZH+hZiXejSkCDoi4Xj8Q=",
-      "BlazorRamp.WebSite.wasm": "sha256-ABU2zE9JWqreBck5szzzz0WOPQLGRNMoo+QEpLZvctY="
+      "System.Private.CoreLib.wasm": "sha256-d7DrUKD2BLmDM5119TMK1s5BU0IRNub5nL1cG89VnNA=",
+      "BlazorRamp.BusyIndicator.wasm": "sha256-2v17gFd4ZB10tbUC7M0WXYKxS1re2rcd+fz1WNhtD30=",
+      "BlazorRamp.Core.wasm": "sha256-/wM9laiF0YMNaB8LJgme7CdspOcAxJmruhBioNB3/EI=",
+      "BlazorRamp.WebSite.wasm": "sha256-iKTzuADGbiS7K7SE+ifxyndWPXfhf5hmt3URmNEGX+A="
     }
   },
   "cacheBootResources": true,
