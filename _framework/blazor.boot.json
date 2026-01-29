@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BlazorRamp.WebSite",
   "resources": {
-    "hash": "sha256-87wkOGtnGDTUVYr8Kdnj56gXZg0uy+xmvg+xPnfVsQA=",
+    "hash": "sha256-fR/zi9VamajqeSxfSLsGA7TEj2IZzMrhhEzdqE2CmNU=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-AlwvznbYtTfPMFBjZqh7Wj4D/MDuNAMT79h4fd0B7s0="
     },
@@ -42,15 +42,15 @@
       "System.Net.Primitives.wasm": "sha256-h7OMygXcLfv3yS7oYcfmRdLJJUVN7MbIBGVZOuOvonM=",
       "System.Private.Uri.wasm": "sha256-Rkx3zdIUiWHjfJHIpDOSYMnSSz6a63habZq2Tdfgx1U=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-6hdGkh80Le78a9cg0/X1jE6bN7MJcXfdZhyjTFvqx4M=",
-      "System.Runtime.wasm": "sha256-95pHmgawGRBWOSTdYH6+GYXLSOtrfvp0xl7gVIsj91M=",
+      "System.Runtime.wasm": "sha256-CkIx/YXdrxyu+EgkiGNlS6gw3eHbfNmpF0W0vRQW6PA=",
       "System.Text.Encodings.Web.wasm": "sha256-QlEAY71V5tn3FS4QI+N/MDAf43l3aWX0SFMMJbfw3C8=",
       "System.Text.Json.wasm": "sha256-fWPU70PwcfQcIUd8OtvLIFSBBfHRS9U5cl+f0qELQBA=",
       "System.Text.RegularExpressions.wasm": "sha256-nE7XCiyeCswUnRGdXOQvcHP+XMWXcToACrazpZlocBI=",
       "System.Private.CoreLib.wasm": "sha256-yD1bIH27sbTwtqAZ/TohFHmIHLn6xoZz8gAtq1YHwaY=",
-      "BlazorRamp.BusyIndicator.wasm": "sha256-n56js1uTuE3b6CLC07RS+srnFKnmpZlcmgRNOsQ3r5c=",
-      "BlazorRamp.Core.wasm": "sha256-GpjTKKLke30F1XIKDiXb2nUYHQqcYk5GcG6HMhek1XE=",
-      "BlazorRamp.SkipTo.wasm": "sha256-g0Qt+vAbgTwV9jgkb7qL28lnJXJ6JB2ILmuziJkQFpk=",
-      "BlazorRamp.WebSite.wasm": "sha256-cyr5BhVneirQlnM3m5l3vw955yTlvJFPEAM8y4/7B4k="
+      "BlazorRamp.BusyIndicator.wasm": "sha256-EXArV5bOzQ56e04Rqt7Xbo/hYQIM5T+o1+Slk57l9Lc=",
+      "BlazorRamp.Core.wasm": "sha256-en6WYrtBdoNyGVJBfEorM4uVXg3AvGwMSndWDujt6do=",
+      "BlazorRamp.SkipTo.wasm": "sha256-k7sHaq1QvC349DMIxDNs20M1DC6y66Pej81r+uIF6+U=",
+      "BlazorRamp.WebSite.wasm": "sha256-0WbrUAh1zDIt0EJFcyoMlZ34h8uUdUMqPlsEvL7D3lM="
     },
     "libraryInitializers": {
       "_content/BlazorRamp.SkipTo/BlazorRamp.SkipTo.7za1ypw5vz.lib.module.js": "sha256-LWwJPoJeOPi41equVeMYXCrhIe01Go7WpWKMJ4zGNYE="
