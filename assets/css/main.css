@@ -212,7 +212,7 @@
   padding-right: var(--br-unit-space-3);
   grid-column: 1/2;
   grid-row: 2/3;
-  width: 16rem;
+  width: 20rem;
   height: 100%;
   overflow-y: auto;
 }
@@ -349,6 +349,8 @@
 }
 
 :root {
+  --br-unit-colour-neutral-saturation: 10;
+  --br-unit-colour-primary: olive;
   --br-info-box-alternate-heading-text: var(--br-unit-colour-accent-darker);
   --br-kbd-background-colour: var(--br-unit-colour-info-lighter) ;
 }
@@ -402,11 +404,29 @@ h1, h2, h3, h4, h5, h6 {
     * Use anthing already defined in the Core project that was used for components.
 */
 ul {
-  padding-left: 1rem;
+  margin-left: var(--br-unit-space-7);
+  padding: 0;
 }
 
 li {
   margin-bottom: var(--br-unit-space-3);
+}
+
+ol > li {
+  margin-left: 1rem;
+  list-style: decimal;
+}
+
+li ul li {
+  list-style-type: disc;
+}
+
+li:focus-visible {
+  outline-style: var(--br-comp-all-outline-style);
+  outline-width: var(--br-comp-all-outline-width);
+  outline-color: var(--br-comp-all-outline-colour);
+  outline-offset: var(--br-comp-all-outline-offset);
+  border-radius: var(--br-unit-radius-2);
 }
 
 p {
@@ -473,6 +493,12 @@ body #app__main {
   gap: var(--br-unit-space-2);
   font-size: var(--br-unit-font-size-label);
 }
+.main-navigation__heading {
+  font-size: var(--br-unit-font-size-2);
+  font-weight: var(--br-unit-font-weight-500);
+  margin-bottom: var(--br-unit-space-3);
+  color: var(--br-comp-all-area-header-text);
+}
 .main-navigation__link {
   all: unset;
   box-sizing: border-box;
@@ -507,17 +533,20 @@ body #app__main {
   border-radius: var(--br-unit-radius-5);
   border: 1px solid var(--br-unit-colour-neutral-30);
   min-width: fit-content;
-}
-.info-box ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.info-box ul li {
-  margin-bottom: var(--br-unit-space-5);
-}
-.info-box ol {
-  margin-left: var(--br-unit-space-6);
+  /*    & ul {
+          list-style: none;
+          margin-left: 1rem;
+          padding: 1rem;
+
+          & li {
+              margin-bottom: var(--br-unit-space-5);
+          }
+      }
+
+      & ol {
+          margin-left: var(--br-unit-space-6);
+      }
+  */
 }
 .info-box__heading {
   color: var(--br-info-box-alternate-heading-text);
@@ -555,6 +584,28 @@ body #app__main {
   accent-color: var(--br-unit-colour-accent-dark);
 }
 
+.section-box {
+  position: relative;
+  padding: var(--br-unit-space-5);
+  margin-bottom: var(--br-unit-space-5);
+  border-radius: var(--br-unit-radius-5);
+  border: var(--br-unit-border-1) solid var(--br-unit-colour-neutral-30);
+}
+@media (max-width: 576px) {
+  .section-box h2 {
+    text-align: center;
+  }
+}
+.section-box h3 {
+  color: var(--br-info-box-alternate-heading-text);
+}
+.section-box:focus {
+  outline-style: var(--br-comp-all-outline-style);
+  outline-width: var(--br-comp-all-outline-width);
+  outline-offset: var(--br-comp-all-outline-offset);
+  outline-color: var(--br-comp-all-outline-colour);
+}
+
 .test-button {
   box-sizing: border-box;
   appearance: none;
@@ -569,7 +620,7 @@ body #app__main {
   background-color: var(--br-comp-all-button-background);
   cursor: pointer;
   padding: var(--br-unit-space-5);
-  width: 16rem;
+  width: 20rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -604,7 +655,7 @@ body #app__main {
   background-color: var(--br-comp-all-button-background);
   cursor: pointer;
   padding: var(--br-unit-space-5);
-  width: 16rem;
+  width: 20rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
