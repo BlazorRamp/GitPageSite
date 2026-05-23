@@ -37,7 +37,22 @@ const setInputFocus = (elementId) => {
     const element = document.getElementById(elementId);
     if (!element)
         return;
-    element.focus();
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    element.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "nearest",
+        inline: "nearest"
+    });
+    if (element.getAttribute('role') === 'radiogroup') {
+        const firstRadio = element.querySelector('input[type="radio"]');
+        if (firstRadio) {
+            firstRadio.setAttribute("data-br-focused", "");
+            firstRadio.focus({ preventScroll: true });
+            firstRadio.addEventListener("blur", () => firstRadio.removeAttribute("data-br-focused"), { once: true });
+        }
+        return;
+    }
+    element.focus({ preventScroll: true });
     switch (element.type) {
         case "text":
         case "password":
