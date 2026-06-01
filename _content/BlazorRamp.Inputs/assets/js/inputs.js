@@ -1,3 +1,5 @@
+const elementFocusOutMap = new WeakMap();
+const TIME_INPUT_COMPONENT_NAME = "TimeInput";
 const getDecimalSeparator = () => Intl.NumberFormat(navigator.language).format(1.1).charAt(1);
 const preventClickAction = (e) => e.preventDefault();
 const preventAction = (e) => e.preventDefault();
@@ -28,6 +30,12 @@ const decimalHandler = (e) => {
     if (input.value !== cleaned)
         input.value = cleaned;
 };
+const timeSegmentHandler = (e) => {
+    const input = e.target;
+    let cleaned = input.value.replace(/[^0-9]/g, '');
+    if (input.value !== cleaned)
+        input.value = cleaned;
+};
 const setInputValue = (inputElement, value) => {
     if (!inputElement)
         return;
@@ -43,10 +51,16 @@ const setInputFocus = (elementId) => {
         block: "nearest",
         inline: "nearest"
     });
+    if (element.getAttribute("data-br-component") === TIME_INPUT_COMPONENT_NAME) {
+        const input = element.querySelector("input");
+        if (input) {
+            input.focus({ preventScroll: true });
+            return;
+        }
+    }
     if (element.getAttribute('role') === 'radiogroup') {
         const firstRadio = element.querySelector('input[type="radio"]');
         if (firstRadio) {
-            firstRadio.setAttribute("data-br-focused", "");
             firstRadio.focus({ preventScroll: true });
             firstRadio.addEventListener("blur", () => firstRadio.removeAttribute("data-br-focused"), { once: true });
         }
@@ -79,7 +93,19 @@ const setSummaryFocus = (elementId) => {
 const registerAriaDisabledHandlers = (inputElement) => {
     if (!inputElement)
         return;
-    if (inputElement.type === "checkbox") {
+    if (inputElement.getAttribute('role') === 'group') {
+        const inputs = inputElement.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.removeEventListener("keydown", ariaDisabledKeyHandler);
+            input.addEventListener("keydown", ariaDisabledKeyHandler);
+            input.removeEventListener("paste", preventAction);
+            input.addEventListener("paste", preventAction);
+            input.removeEventListener("cut", preventAction);
+            input.addEventListener("cut", preventAction);
+        });
+        return;
+    }
+    if (inputElement.type === "checkbox" || inputElement.type === "time") {
         inputElement.removeEventListener("click", preventClickAction);
         inputElement.addEventListener("click", preventClickAction);
     }
@@ -93,6 +119,15 @@ const registerAriaDisabledHandlers = (inputElement) => {
 const unregisterAriaDisabledHandlers = (inputElement) => {
     if (!inputElement)
         return;
+    if (inputElement.getAttribute('role') === 'group') {
+        const inputs = inputElement.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.removeEventListener("keydown", ariaDisabledKeyHandler);
+            input.removeEventListener("paste", preventAction);
+            input.removeEventListener("cut", preventAction);
+        });
+        return;
+    }
     inputElement.removeEventListener("keydown", ariaDisabledKeyHandler);
     inputElement.removeEventListener("cut", preventAction);
     inputElement.removeEventListener("paste", preventAction);
@@ -141,5 +176,43 @@ const unregisterSelectReadOnlyDisabledHandlers = (inputElement) => {
     inputElement.removeEventListener("mousedown", preventAction);
     inputElement.removeEventListener("keydown", selectReadOnlyKeyHandler);
 };
-export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers };
+const registerTimeSegmentHandlers = (hoursElement, minutesElement, secondsElement) => {
+    if (!hoursElement || !minutesElement)
+        return;
+    hoursElement.addEventListener("input", timeSegmentHandler);
+    minutesElement.addEventListener("input", timeSegmentHandler);
+    if (secondsElement) {
+        secondsElement.addEventListener("input", timeSegmentHandler);
+    }
+};
+const unregisterTimeSegmentHandlers = (hoursElement, minutesElement, secondsElement) => {
+    if (!hoursElement || !minutesElement)
+        return;
+    hoursElement.removeEventListener("input", timeSegmentHandler);
+    minutesElement.removeEventListener("input", timeSegmentHandler);
+    if (secondsElement) {
+        secondsElement.removeEventListener("input", timeSegmentHandler);
+    }
+};
+const registerElementFocusOutHandler = (element, dotNetRef, callBackName) => {
+    if (!element)
+        return;
+    const handler = (e) => {
+        if (element.contains(e.relatedTarget))
+            return;
+        dotNetRef.invokeMethodAsync(callBackName);
+    };
+    elementFocusOutMap.set(element, handler);
+    element.addEventListener("focusout", handler);
+};
+const unregisterElementFocusOutHandler = (element) => {
+    if (!element)
+        return;
+    const handler = elementFocusOutMap.get(element);
+    if (handler) {
+        element.removeEventListener("focusout", handler);
+        elementFocusOutMap.delete(element);
+    }
+};
+export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers, registerTimeSegmentHandlers, unregisterTimeSegmentHandlers, registerElementFocusOutHandler, unregisterElementFocusOutHandler };
 //# sourceMappingURL=inputs.js.map
