@@ -1,5 +1,6 @@
 const elementFocusOutMap = new WeakMap();
 const TIME_INPUT_COMPONENT_NAME = "TimeInput";
+const DATE_INPUT_COMPONENT_NAME = "DateInput";
 const getDecimalSeparator = () => Intl.NumberFormat(navigator.language).format(1.1).charAt(1);
 const preventClickAction = (e) => e.preventDefault();
 const preventAction = (e) => e.preventDefault();
@@ -36,6 +37,12 @@ const timeSegmentHandler = (e) => {
     if (input.value !== cleaned)
         input.value = cleaned;
 };
+const dateSegmentHandler = (e) => {
+    const input = e.target;
+    let cleaned = input.value.replace(/[^0-9]/g, '');
+    if (input.value !== cleaned)
+        input.value = cleaned;
+};
 const setInputValue = (inputElement, value) => {
     if (!inputElement)
         return;
@@ -51,7 +58,7 @@ const setInputFocus = (elementId) => {
         block: "nearest",
         inline: "nearest"
     });
-    if (element.getAttribute("data-br-component") === TIME_INPUT_COMPONENT_NAME) {
+    if (element.getAttribute("data-br-component") === TIME_INPUT_COMPONENT_NAME || element.getAttribute("data-br-component") === DATE_INPUT_COMPONENT_NAME) {
         const input = element.querySelector("input");
         if (input) {
             input.focus({ preventScroll: true });
@@ -89,6 +96,16 @@ const setSummaryFocus = (elementId) => {
     element.setAttribute("tabindex", "-1");
     element.focus();
     element.addEventListener("blur", () => element.removeAttribute("tabindex"), { once: true });
+};
+const formatDateForAnnouncement = (dateString) => {
+    try {
+        const [year, month, day] = dateString.split('-').map(Number);
+        const date = new Date(year, month - 1, day);
+        return new Intl.DateTimeFormat(navigator.language, { dateStyle: 'long' }).format(date);
+    }
+    catch {
+        return '';
+    }
 };
 const registerAriaDisabledHandlers = (inputElement) => {
     if (!inputElement)
@@ -194,6 +211,20 @@ const unregisterTimeSegmentHandlers = (hoursElement, minutesElement, secondsElem
         secondsElement.removeEventListener("input", timeSegmentHandler);
     }
 };
+const registerDateSegmentHandlers = (yearsElement, monthsElement, daysElement) => {
+    if (!yearsElement || !monthsElement || !daysElement)
+        return;
+    yearsElement.addEventListener("input", dateSegmentHandler);
+    monthsElement.addEventListener("input", dateSegmentHandler);
+    daysElement.addEventListener("input", dateSegmentHandler);
+};
+const unregisterDateSegmentHandlers = (yearsElement, monthsElement, daysElement) => {
+    if (!yearsElement || !monthsElement || !daysElement)
+        return;
+    yearsElement.removeEventListener("input", dateSegmentHandler);
+    monthsElement.removeEventListener("input", dateSegmentHandler);
+    daysElement.removeEventListener("input", dateSegmentHandler);
+};
 const registerElementFocusOutHandler = (element, dotNetRef, callBackName) => {
     if (!element)
         return;
@@ -214,5 +245,5 @@ const unregisterElementFocusOutHandler = (element) => {
         elementFocusOutMap.delete(element);
     }
 };
-export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers, registerTimeSegmentHandlers, unregisterTimeSegmentHandlers, registerElementFocusOutHandler, unregisterElementFocusOutHandler };
+export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers, registerTimeSegmentHandlers, unregisterTimeSegmentHandlers, registerElementFocusOutHandler, unregisterElementFocusOutHandler, registerDateSegmentHandlers, unregisterDateSegmentHandlers, formatDateForAnnouncement };
 //# sourceMappingURL=inputs.js.map
