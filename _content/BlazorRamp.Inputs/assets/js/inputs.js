@@ -1,6 +1,8 @@
 const elementFocusOutMap = new WeakMap();
+const textAreaCounterMap = new WeakMap();
 const TIME_INPUT_COMPONENT_NAME = "TimeInput";
 const DATE_INPUT_COMPONENT_NAME = "DateInput";
+const TEXTAREA_INPUT_COMPONENT_NAME = "TextAreaInput";
 const getDecimalSeparator = () => Intl.NumberFormat(navigator.language).format(1.1).charAt(1);
 const preventClickAction = (e) => e.preventDefault();
 const preventAction = (e) => e.preventDefault();
@@ -73,6 +75,15 @@ const setInputFocus = (elementId) => {
         }
         return;
     }
+    if (element instanceof HTMLTextAreaElement) {
+        element.focus({ preventScroll: true });
+        try {
+            if (element.value)
+                element.setSelectionRange(element.value.length, element.value.length);
+        }
+        catch { }
+        return;
+    }
     element.focus({ preventScroll: true });
     switch (element.type) {
         case "text":
@@ -122,7 +133,7 @@ const registerAriaDisabledHandlers = (inputElement) => {
         });
         return;
     }
-    if (inputElement.type === "checkbox" || inputElement.type === "time") {
+    if (inputElement.type === "checkbox") {
         inputElement.removeEventListener("click", preventClickAction);
         inputElement.addEventListener("click", preventClickAction);
     }
@@ -245,5 +256,51 @@ const unregisterElementFocusOutHandler = (element) => {
         elementFocusOutMap.delete(element);
     }
 };
-export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers, registerTimeSegmentHandlers, unregisterTimeSegmentHandlers, registerElementFocusOutHandler, unregisterElementFocusOutHandler, registerDateSegmentHandlers, unregisterDateSegmentHandlers, formatDateForAnnouncement };
+const formatCountMessage = (remainingMessage, overlimitMessage, currentLength, maxLength) => {
+    const countLength = Math.abs(maxLength - currentLength);
+    const template = currentLength <= maxLength ? remainingMessage : overlimitMessage;
+    return template.replace(/{count}/g, countLength.toString());
+};
+const textAreaCountHandler = (event, dotNetRef, callBackName, textAreaElement, messageElement, remainingMessage, overlimitMessage, overClass, maxCharacters) => {
+    if (!dotNetRef || !callBackName || !textAreaElement || !messageElement)
+        return;
+    const pasted = event.inputType === "insertFromPaste" || event.inputType === "insertFromDrop";
+    const currentLength = textAreaElement.value?.length ?? 0;
+    const message = formatCountMessage(remainingMessage, overlimitMessage, currentLength, maxCharacters);
+    messageElement.textContent = message;
+    if (currentLength > maxCharacters) {
+        messageElement.classList.add(overClass);
+    }
+    else {
+        messageElement.classList.remove(overClass);
+    }
+    dotNetRef.invokeMethodAsync(callBackName, currentLength, pasted);
+};
+const registerTextAreaCharacterCountHandler = (dotNetRef, callBackName, textAreaElement, messageElement, remainingMessage, overlimitMessage, overClass, maxCharacters) => {
+    if (!dotNetRef || !callBackName || !textAreaElement || !messageElement || !remainingMessage || !overlimitMessage)
+        return;
+    const handler = (event) => textAreaCountHandler(event, dotNetRef, callBackName, textAreaElement, messageElement, remainingMessage, overlimitMessage, overClass, maxCharacters);
+    const currentLength = textAreaElement.value?.length ?? 0;
+    const isOver = currentLength > maxCharacters;
+    messageElement.textContent = formatCountMessage(remainingMessage, overlimitMessage, currentLength, maxCharacters);
+    if (isOver) {
+        messageElement.classList.add(overClass);
+    }
+    else {
+        messageElement.classList.remove(overClass);
+    }
+    textAreaElement.removeEventListener("input", handler);
+    textAreaElement.addEventListener("input", handler);
+    textAreaCounterMap.set(textAreaElement, handler);
+};
+const unregisterTextAreaCharacterCountHandler = (textAreaElement) => {
+    if (!textAreaElement)
+        return;
+    const handler = textAreaCounterMap.get(textAreaElement);
+    if (handler) {
+        textAreaElement.removeEventListener("input", handler);
+        textAreaCounterMap.delete(textAreaElement);
+    }
+};
+export { registerAriaDisabledHandlers, unregisterAriaDisabledHandlers, registerNumericHandlers, unregisterNumericHandlers, setInputValue, setInputFocus, setSummaryFocus, registerReadOnlyHandlers, unregisterReadOnlyHandlers, registerSelectReadOnlyDisabledHandlers, unregisterSelectReadOnlyDisabledHandlers, registerTimeSegmentHandlers, unregisterTimeSegmentHandlers, registerElementFocusOutHandler, unregisterElementFocusOutHandler, registerDateSegmentHandlers, unregisterDateSegmentHandlers, formatDateForAnnouncement, registerTextAreaCharacterCountHandler, unregisterTextAreaCharacterCountHandler };
 //# sourceMappingURL=inputs.js.map
