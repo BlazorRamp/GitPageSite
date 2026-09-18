@@ -550,6 +550,12 @@ body #app__main {
   fill: var(--br-unit-colour-canvas-text);
 }
 
+@media (forced-colors: active) {
+  .logo-top,
+  .logo-bottom {
+    fill: CanvasText;
+  }
+}
 .main-navigation > ul {
   all: unset;
   box-sizing: border-box;
